@@ -62,13 +62,13 @@ export default function SearchBar({ onSearch, isLoading }: SearchBarProps) {
           onClick={() => handleSubmit()}
           disabled={isLoading}
         >
-          {isLoading ? '⏳' : '🔍'}
+          {isLoading ? <span className={styles.spinner} /> : '🔍'}
         </button>
         <input
           ref={inputRef}
           className={styles.input}
           type="text"
-          placeholder="...הקלד שם שחקן"
+          placeholder="הקלד שם שחקן..."
           value={query}
           onChange={(e) => {
             setQuery(e.target.value)

@@ -81,6 +81,13 @@ export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
             <span className={styles.funFactLabel}>💡 הידעת?</span>
             <p className={styles.funFactText}>{player.funFact}</p>
           </div>
+
+          {player.personalLife && (
+            <div className={styles.personalLife}>
+              <span className={styles.personalLifeLabel}>🔥 חיים אישיים</span>
+              <p className={styles.personalLifeText}>{player.personalLife}</p>
+            </div>
+          )}
         </div>
 
         {/* Back */}
@@ -113,12 +120,16 @@ export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
                   key={`${entry.club}-${entry.years}`}
                   className={`${styles.careerRow} ${isNational ? styles.nationalRow : ''}`}
                 >
-                  <span>{entry.assists}</span>
+                  <span>{entry.assists ?? '—'}</span>
                   <span>{entry.goals}</span>
                   <span>{entry.appearances}</span>
                   <span className={styles.years}>{entry.years}</span>
                   <span className={styles.clubCol}>
-                    {entry.clubEmoji} {entry.club}
+                    <span
+                      className={styles.clubDot}
+                      style={{ background: entry.clubColor }}
+                    />
+                    {entry.club}
                   </span>
                 </div>
               )

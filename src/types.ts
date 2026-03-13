@@ -1,10 +1,10 @@
 export interface PlayerCareer {
   club: string
-  clubEmoji: string
+  clubColor: string
   years: string
   appearances: number
   goals: number
-  assists: number
+  assists: number | null
 }
 
 export interface PlayerData {
@@ -18,6 +18,7 @@ export interface PlayerData {
   currentClub: string
   englishName: string
   funFact: string
+  personalLife: string
   achievements: string
   career: PlayerCareer[]
 }

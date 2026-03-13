@@ -1,6 +1,6 @@
 .wrapper {
   width: 100%;
-  max-width: 380px;
+  max-width: 500px;
   margin-top: 24px;
   perspective: 1000px;
 }
@@ -31,6 +31,7 @@
 
 .back {
   transform: rotateY(180deg);
+  padding-bottom: 32px;
 }
 
 .flipHint {
@@ -101,9 +102,10 @@
 
 .statValue {
   display: block;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   color: #4ade80;
+  word-break: break-word;
 }
 
 .statLabel {
@@ -111,6 +113,10 @@
   font-size: 11px;
   color: #c4b5fd;
   margin-top: 4px;
+}
+
+.stat:has(.statValue) {
+  max-width: 120px;
 }
 
 .funFact {
@@ -127,6 +133,25 @@
 }
 
 .funFactText {
+  font-size: 13px;
+  color: #e0d5ff;
+  margin: 6px 0 0;
+}
+
+.personalLife {
+  background: rgba(244, 114, 182, 0.1);
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  border: 1px solid rgba(244, 114, 182, 0.2);
+}
+
+.personalLifeLabel {
+  font-size: 12px;
+  color: #f472b6;
+}
+
+.personalLifeText {
   font-size: 13px;
   color: #e0d5ff;
   margin: 6px 0 0;
@@ -162,6 +187,19 @@
 .clubCol {
   min-width: 90px;
   text-align: right !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.clubDot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .careerRow {

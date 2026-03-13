@@ -1,0 +1,82 @@
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 8px;
+}
+
+.input {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 24px;
+  border: 2px solid #7c3aed;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-align: right;
+  font-size: 16px;
+  outline: none;
+  backdrop-filter: blur(4px);
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: #a78bfa;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.searchButton {
+  background: linear-gradient(135deg, #4ade80, #22d3ee);
+  color: #000;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 22px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 18px;
+  transition: opacity 0.2s;
+}
+
+.searchButton:hover {
+  opacity: 0.9;
+}
+
+.searchButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #1e1b4b;
+  border: 1px solid #7c3aed;
+  border-radius: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.suggestion {
+  padding: 10px 20px;
+  cursor: pointer;
+  text-align: right;
+  color: #e0d5ff;
+  font-size: 15px;
+  transition: background 0.15s;
+}
+
+.suggestion:hover,
+.selected {
+  background: rgba(124, 58, 237, 0.3);
+}

@@ -1,10 +1,53 @@
 .app {
   min-height: 100vh;
-  background: #0d3b1e;
+  background:
+    linear-gradient(135deg, #0d3b1e 25%, #14532d 50%, #0d3b1e 75%);
   color: white;
   font-family: system-ui, sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+.app::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, transparent 49.5%, rgba(255,255,255,0.05) 49.5%, rgba(255,255,255,0.05) 50.5%, transparent 50.5%),
+    radial-gradient(circle at 50% 50%, transparent 18%, rgba(255,255,255,0.04) 18%, rgba(255,255,255,0.04) 18.5%, transparent 18.5%);
+  pointer-events: none;
+}
+
+.logo {
+  font-size: 56px;
+  margin-bottom: 8px;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  margin: 0;
+  background: linear-gradient(90deg, #4ade80, #22d3ee, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: #c4b5fd;
+  font-size: 16px;
+  margin: 8px 0 24px;
+}
+
+.error {
+  color: #fca5a5;
+  margin-top: 16px;
+  font-size: 15px;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 12px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }

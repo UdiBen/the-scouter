@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 24px;
+  text-align: right;
+}
+
+.label {
+  color: #a78bfa;
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.chip {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.3),
+    rgba(99, 102, 241, 0.3)
+  );
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #e0d5ff;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chip:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.5),
+    rgba(99, 102, 241, 0.5)
+  );
+}

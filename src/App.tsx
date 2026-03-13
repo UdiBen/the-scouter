@@ -2,15 +2,30 @@ import { useState } from 'react'
 import styles from './App.module.css'
 import SearchBar from './components/SearchBar'
 import PlayerCard from './components/PlayerCard'
-import type { PlayerData } from './types'
+import RecentSearches from './components/RecentSearches'
+import { useRecentSearches } from './hooks/useRecentSearches'
+import type { PlayerData, CachedPlayer } from './types'
 
 function App() {
   const [player, setPlayer] = useState<PlayerData | null>(null)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const { recent, addRecent, getFromCache } = useRecentSearches()
+
+  const showPlayer = (cached: CachedPlayer) => {
+    setPlayer(cached.data)
+    setImageUrl(cached.imageUrl)
+    setError(null)
+  }
 
   const handleSearch = async (query: string) => {
+    const cached = getFromCache(query)
+    if (cached) {
+      showPlayer(cached)
+      return
+    }
+
     setIsLoading(true)
     setError(null)
     setPlayer(null)
@@ -36,6 +51,12 @@ function App() {
       )
       const imgData = await imgRes.json()
       setImageUrl(imgData.url)
+
+      addRecent({
+        data,
+        imageUrl: imgData.url,
+        timestamp: Date.now(),
+      })
     } catch {
       setError('משהו השתבש, נסה שוב 😕')
     } finally {
@@ -51,6 +72,9 @@ function App() {
       <SearchBar onSearch={handleSearch} isLoading={isLoading} />
       {error && <p className={styles.error}>{error}</p>}
       {player && <PlayerCard player={player} imageUrl={imageUrl} />}
+      {!player && !isLoading && (
+        <RecentSearches recent={recent} onSelect={showPlayer} />
+      )}
     </div>
   )
 }

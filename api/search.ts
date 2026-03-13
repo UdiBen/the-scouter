@@ -52,7 +52,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const result = await model.generateContent({
       contents: [{ role: 'user', parts: [{ text: query }] }],
-      tools: [{ googleSearchRetrieval: {} }],
+      tools: [{ googleSearch: {} } as never],
     })
 
     const text = result.response.text()
@@ -61,7 +61,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // Retry once on bad JSON
       const retry = await model.generateContent({
         contents: [{ role: 'user', parts: [{ text: query }] }],
-        tools: [{ googleSearchRetrieval: {} }],
+        tools: [{ googleSearch: {} } as never],
       })
       const retryText = retry.response.text()
       const retryMatch = retryText.match(/\{[\s\S]*\}/)

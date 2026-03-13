@@ -47,7 +47,7 @@ async function main() {
     try {
       const result = await model.generateContent({
         contents: [{ role: 'user', parts: [{ text: PROMPT(league) }] }],
-        tools: [{ googleSearchRetrieval: {} }],
+        tools: [{ googleSearch: {} }],
       })
       const text = result.response.text()
       const jsonMatch = text.match(/\[[\s\S]*\]/)

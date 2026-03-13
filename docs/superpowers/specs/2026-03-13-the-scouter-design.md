@@ -1,0 +1,195 @@
+# The Scouter — Design Spec
+
+A playful Hebrew soccer player explorer for kids. Single-page React app where a user types a player name, gets a flippable collectible card with stats, trivia, career history, and a photo.
+
+## Target Audience
+
+A 9-year-old Hebrew-speaking soccer fan. The UI is fun, colorful, and entirely in Hebrew.
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────┐
+│              Vercel Deployment               │
+├───────────────────┬─────────────────────────┤
+│   Vite React SPA  │   Serverless Functions  │
+│                   │                         │
+│  - Search input   │  POST /api/search       │
+│    w/ autocomplete│    → Gemini + grounding │
+│  - Flippable card │                         │
+│  - Recent searches│  GET /api/image         │
+│                   │    → Google Custom      │
+│                   │      Search Images      │
+└───────────────────┴─────────────────────────┘
+```
+
+### Flow
+
+1. User types a player name → autocomplete suggests from a pre-built static list
+2. On submit, frontend calls `POST /api/search` with the query
+3. Serverless function calls Gemini (with Google Search grounding) → returns structured player JSON
+4. Frontend calls `GET /api/image?q=<player name>` → serverless function calls Google Custom Search → returns image URL
+5. Frontend renders the flippable collectible card
+6. Player data + image URL cached in localStorage; added to recent searches
+
+## Visual Design
+
+### Theme
+- **Background:** Dark soccer field pattern — subtle green (#0d3b1e) with field line markings
+- **Card:** Purple/indigo gradient (#1e1b4b → #312e81) with glowing purple border, 24px rounded corners
+- **Accents:** Green (#4ade80), cyan (#22d3ee), purple (#a78bfa)
+- **Text:** White/light purple (#e0d5ff)
+- **Overall feel:** Playful, rounded, colorful — like a collectible trading card
+
+### Layout (RTL, Hebrew)
+- **Top:** App logo "הסקאוטר" with gradient text + soccer ball emoji
+- **Center:** Search input with rounded borders and autocomplete dropdown
+- **Below search:** Flippable player card (or recent searches when no card shown)
+- **Bottom of card:** Small disclaimer: "* הנתונים מבוססים על AI ועשויים להיות לא מדויקים"
+
+### Card Front
+- Player photo (circular, gradient border)
+- Full name in Hebrew
+- Nationality flag + country name
+- Stat bubbles: age, position (in Hebrew), shirt number — each in a rounded pill with purple background
+- "הידעת?" (Did you know?) trivia box with yellow accent
+
+### Card Back
+- Player name + "קריירה" header
+- Career table: club (with emoji), years, appearances, goals, assists
+- National team row highlighted in green
+- "הישגים" (Achievements) box with trophy emoji
+- "הפוך" (Flip) button on both sides
+
+### Card Flip
+- CSS 3D transform (`rotateY(180deg)`)
+- Click anywhere on the card or the "הפוך" button to flip
+
+## Recent Searches
+- Stored in localStorage (last 10)
+- Each entry caches the full player data + image URL for instant reload
+- Displayed as rounded chips with player name + nationality flag
+- Clicking a chip loads the cached card instantly (no API call)
+- Shown below the search input when no card is displayed
+
+## Autocomplete
+
+### Static Player List
+- ~500 players from: Premier League, La Liga, Ligue 1, Serie A, Bundesliga, Israeli Premier League
+- Generated at build time by a script that calls Gemini once
+- Bundled as a static JSON file
+
+### Data Format
+```json
+[
+  { "name": "קיליאן מבאפה", "flag": "🇫🇷" },
+  { "name": "ארלינג האלאנד", "flag": "🇳🇴" },
+  { "name": "עומר אצילי", "flag": "🇮🇱" }
+]
+```
+
+### Behavior
+- Fuzzy match on Hebrew name as user types
+- Dropdown shows: `שם שחקן 🏳️` (name + flag)
+- User can still type any name freely — autocomplete suggests but doesn't restrict
+- Selecting a suggestion fills the input and triggers search
+
+## API Design
+
+### POST /api/search
+
+**Input:**
+```json
+{ "query": "מבאפה" }
+```
+
+**Process:**
+- Calls Gemini (gemini-2.5-flash) with Google Search grounding enabled
+- System prompt enforces Hebrew output and the exact JSON schema below
+
+**Output — Player Data Schema:**
+```json
+{
+  "found": true,
+  "fullName": "קיליאן מבאפה",
+  "nationality": "צרפת",
+  "nationalityFlag": "🇫🇷",
+  "age": 26,
+  "position": "חלוץ",
+  "shirtNumber": 7,
+  "currentClub": "ריאל מדריד",
+  "funFact": "מבאפה הבקיע את שער הבכורה שלו בגיל 16 בלבד!",
+  "achievements": "אלוף העולם 2018 · מלך שערים מונדיאל 2022 · 7× אלוף ליגה 1",
+  "career": [
+    {
+      "club": "מונאקו",
+      "clubEmoji": "🔴",
+      "years": "2015-2017",
+      "appearances": 60,
+      "goals": 28,
+      "assists": 21
+    }
+  ]
+}
+```
+
+**Not found:**
+```json
+{ "found": false }
+```
+
+### GET /api/image
+
+**Input:** `?q=Kylian+Mbappé+soccer+player`
+
+Note: The search query uses the English player name for better image results. The `/api/search` endpoint will also return an `englishName` field for this purpose.
+
+**Process:**
+- Calls Google Custom Search JSON API (Images)
+- Returns first result
+
+**Output:**
+```json
+{ "url": "https://..." }
+```
+
+**No result:**
+```json
+{ "url": null }
+```
+
+## Tech Stack
+
+| Layer | Choice |
+|-------|--------|
+| Frontend | Vite + React + TypeScript |
+| Styling | CSS Modules |
+| Card flip | CSS 3D transforms |
+| Autocomplete | Custom component, fuzzy match |
+| Backend | Vercel serverless functions (`api/`) |
+| AI | Gemini 2.5 Flash with Google Search grounding |
+| Images | Google Custom Search JSON API (free: 100/day) |
+| Storage | localStorage (recent searches + full cached data) |
+| Player list | Static JSON, generated by build-time Gemini script |
+| Deploy | Vercel |
+
+## Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `GEMINI_API_KEY` | Gemini API for player data |
+| `GOOGLE_CSE_API_KEY` | Google Custom Search API key |
+| `GOOGLE_CSE_ID` | Custom Search Engine ID |
+
+## Error Handling
+
+| Scenario | Behavior |
+|----------|----------|
+| Player not found | Friendly message: "לא מצאנו את השחקן, נסה שוב" |
+| No image found | Default soccer ball avatar |
+| API error/timeout | Retry message: "משהו השתבש, נסה שוב" |
+| Gemini returns bad JSON | Retry once, then show error |
+
+## Language
+
+Everything is in Hebrew — all UI text, all data from Gemini, error messages, labels, placeholder text. Zero English anywhere in the user-facing app.

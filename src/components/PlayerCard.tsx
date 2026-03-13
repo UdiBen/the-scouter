@@ -51,7 +51,7 @@ export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
                 className={styles.photo}
               />
             ) : (
-              <span className={styles.photoFallback}>⚽</span>
+              <span className={styles.photoFallback}>{player.nationalityFlag}</span>
             )}
           </div>
 

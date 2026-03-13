@@ -3,6 +3,7 @@ import styles from './App.module.css'
 import SearchBar from './components/SearchBar'
 import PlayerCard from './components/PlayerCard'
 import RecentSearches from './components/RecentSearches'
+import LoadingTrivia from './components/LoadingTrivia'
 import { useRecentSearches } from './hooks/useRecentSearches'
 import type { PlayerData, CachedPlayer } from './types'
 
@@ -71,6 +72,7 @@ function App() {
       <p className={styles.subtitle}>מצא את השחקן שלך 🔎</p>
       <SearchBar onSearch={handleSearch} isLoading={isLoading} />
       {error && <p className={styles.error}>{error}</p>}
+      {isLoading && <LoadingTrivia />}
       {player && <PlayerCard player={player} imageUrl={imageUrl} />}
       {!player && !isLoading && (
         <RecentSearches recent={recent} onSelect={showPlayer} />

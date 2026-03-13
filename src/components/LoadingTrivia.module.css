@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  max-width: 340px;
+  text-align: center;
+}
+
+.spinner {
+  font-size: 48px;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.label {
+  color: #c4b5fd;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.trivia {
+  color: #a7f3d0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  min-height: 48px;
+  transition: opacity 0.3s ease;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}

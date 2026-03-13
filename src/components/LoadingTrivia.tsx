@@ -21,7 +21,7 @@ export default function LoadingTrivia() {
         })
         setFade(true)
       }, 300)
-    }, 3500)
+    }, 5000)
     return () => clearInterval(interval)
   }, [])
 

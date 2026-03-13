@@ -5,8 +5,7 @@ import type { PlayerData } from './types'
 
 function App() {
   const [player, setPlayer] = useState<PlayerData | null>(null)
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
-  void imageUrl // used by PlayerCard in a future task
+  const [_imageUrl, setImageUrl] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 

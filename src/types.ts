@@ -10,6 +10,7 @@ export interface PlayerCareer {
 export interface PlayerData {
   found: true
   fullName: string
+  displayName?: string
   nationality: string
   nationalityFlag: string
   age: number

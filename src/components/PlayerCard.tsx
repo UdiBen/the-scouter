@@ -55,7 +55,7 @@ export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
             )}
           </div>
 
-          <h2 className={styles.name}>{player.fullName}</h2>
+          <h2 className={styles.name}>{player.displayName || player.fullName}</h2>
           <p className={styles.nationality}>
             {player.nationalityFlag} {player.nationality}
           </p>
@@ -102,7 +102,7 @@ export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
             👆 הפוך
           </button>
 
-          <h2 className={styles.name}>{player.fullName}</h2>
+          <h2 className={styles.name}>{player.displayName || player.fullName}</h2>
           <p className={styles.careerTitle}>⚽ קריירה</p>
 
           <div className={styles.careerTable}>

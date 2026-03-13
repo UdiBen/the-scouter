@@ -50,11 +50,11 @@ function App() {
         `/api/image?q=${encodeURIComponent(data.englishName + ' soccer player')}`
       )
       const imgData = await imgRes.json()
-      setImageUrl(imgData.url)
+      setImageUrl(imgData.url ?? null)
 
       addRecent({
         data,
-        imageUrl: imgData.url,
+        imageUrl: imgData.url ?? null,
         timestamp: Date.now(),
       })
     } catch {

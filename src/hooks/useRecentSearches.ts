@@ -14,23 +14,26 @@ function loadRecent(): CachedPlayer[] {
 }
 
 function saveRecent(players: CachedPlayer[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(players))
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(players))
+  } catch {
+    // storage full or unavailable; in-memory state remains correct
+  }
 }
 
 export function useRecentSearches() {
   const [recent, setRecent] = useState<CachedPlayer[]>(loadRecent)
 
-  const addRecent = useCallback(
-    (player: CachedPlayer) => {
-      const filtered = recent.filter(
+  const addRecent = useCallback((player: CachedPlayer) => {
+    setRecent((prev) => {
+      const filtered = prev.filter(
         (p) => p.data.fullName !== player.data.fullName
       )
       const updated = [player, ...filtered].slice(0, MAX_RECENT)
-      setRecent(updated)
       saveRecent(updated)
-    },
-    [recent]
-  )
+      return updated
+    })
+  }, [])
 
   const getFromCache = useCallback(
     (name: string): CachedPlayer | undefined => {

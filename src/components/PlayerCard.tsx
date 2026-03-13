@@ -17,7 +17,7 @@ export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
     const updateHeight = () => {
       const frontH = frontRef.current?.scrollHeight ?? 0
       const backH = backRef.current?.scrollHeight ?? 0
-      setCardHeight(Math.max(frontH, backH))
+      setCardHeight(Math.max(frontH, backH) + 16)
     }
     updateHeight()
     window.addEventListener('resize', updateHeight)

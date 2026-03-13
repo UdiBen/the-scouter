@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import styles from './App.module.css'
 import SearchBar from './components/SearchBar'
+import PlayerCard from './components/PlayerCard'
 import type { PlayerData } from './types'
 
 function App() {
   const [player, setPlayer] = useState<PlayerData | null>(null)
-  const [_imageUrl, setImageUrl] = useState<string | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -49,7 +50,7 @@ function App() {
       <p className={styles.subtitle}>מצא את השחקן שלך 🔎</p>
       <SearchBar onSearch={handleSearch} isLoading={isLoading} />
       {error && <p className={styles.error}>{error}</p>}
-      {player && <p style={{ color: 'white' }}>נמצא: {player.fullName}</p>}
+      {player && <PlayerCard player={player} imageUrl={imageUrl} />}
     </div>
   )
 }

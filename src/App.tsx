@@ -47,7 +47,7 @@ function App() {
       setPlayer(data)
 
       const imgRes = await fetch(
-        `/api/image?q=${encodeURIComponent(data.englishName + ' soccer player')}`
+        `/api/image?q=${encodeURIComponent(data.englishName)}`
       )
       const imgData = await imgRes.json()
       setImageUrl(imgData.url ?? null)

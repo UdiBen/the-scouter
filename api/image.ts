@@ -11,16 +11,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const params = new URLSearchParams({
-      key: process.env.GOOGLE_CSE_API_KEY!,
-      cx: process.env.GOOGLE_CSE_ID!,
-      q: `${q} soccer player photo`,
-      searchType: 'image',
-      num: '1',
-    })
-
+    const encoded = encodeURIComponent(q)
     const response = await fetch(
-      `https://www.googleapis.com/customsearch/v1?${params}`
+      `https://en.wikipedia.org/api/rest_v1/page/summary/${encoded}`
     )
 
     if (!response.ok) {
@@ -28,7 +21,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     const data = await response.json()
-    const url = data.items?.[0]?.link ?? null
+    const url = data.thumbnail?.source ?? null
     return res.status(200).json({ url })
   } catch (error) {
     console.error('Image search error:', error)

@@ -283,7 +283,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const result = await model.generateContent({
       contents: [{ role: 'user', parts: [{ text: query }] }],
-      tools: [{ googleSearch: {} }],
+      tools: [{ googleSearchRetrieval: {} }],
     })
 
     const text = result.response.text()
@@ -292,7 +292,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       // Retry once on bad JSON
       const retry = await model.generateContent({
         contents: [{ role: 'user', parts: [{ text: query }] }],
-        tools: [{ googleSearch: {} }],
+        tools: [{ googleSearchRetrieval: {} }],
       })
       const retryText = retry.response.text()
       const retryMatch = retryText.match(/\{[\s\S]*\}/)
@@ -1466,7 +1466,7 @@ async function main() {
     try {
       const result = await model.generateContent({
         contents: [{ role: 'user', parts: [{ text: PROMPT(league) }] }],
-        tools: [{ googleSearch: {} }],
+        tools: [{ googleSearchRetrieval: {} }],
       })
       const text = result.response.text()
       const jsonMatch = text.match(/\[[\s\S]*\]/)

@@ -1,0 +1,22 @@
+.container {
+  background: rgba(34, 211, 238, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(34, 211, 238, 0.15);
+}
+
+.chartWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 12px;
+  color: #a5f3fc;
+  line-height: 1.6;
+  background: rgba(34, 211, 238, 0.05);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: right;
+}

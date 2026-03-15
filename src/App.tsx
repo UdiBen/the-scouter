@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import styles from './App.module.css'
 import SearchBar from './components/SearchBar'
 import PlayerCard from './components/PlayerCard'
 import RecentSearches from './components/RecentSearches'
 import LoadingTrivia from './components/LoadingTrivia'
+import ProfileCarousel from './components/ProfileCarousel'
 import { useRecentSearches } from './hooks/useRecentSearches'
 import type { PlayerData, CachedPlayer } from './types'
 
@@ -13,6 +14,12 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { recent, addRecent, getFromCache } = useRecentSearches()
+  const profileRef = useRef<HTMLDivElement>(null)
+
+  const hasProfileData = player && (
+    player.trophies?.length || player.playingStyle || player.timeline?.length ||
+    player.similarPlayers?.length || player.iconicMoments?.length
+  )
 
   const showPlayer = (cached: CachedPlayer) => {
     setPlayer(cached.data)
@@ -74,11 +81,26 @@ function App() {
       {error && <p className={styles.error}>{error}</p>}
       {isLoading && <LoadingTrivia />}
       {player && (
-        <PlayerCard
-          player={player}
-          imageUrl={imageUrl}
-          onDismiss={() => { setPlayer(null); setImageUrl(null) }}
-        />
+        <>
+          <PlayerCard
+            player={player}
+            imageUrl={imageUrl}
+            onDismiss={() => { setPlayer(null); setImageUrl(null) }}
+          />
+          {hasProfileData && (
+            <button
+              className={styles.discoverBtn}
+              onClick={() => profileRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              גלה עוד על השחקן ↓
+            </button>
+          )}
+          {hasProfileData && (
+            <div ref={profileRef}>
+              <ProfileCarousel player={player} onPlayerSearch={handleSearch} />
+            </div>
+          )}
+        </>
       )}
       {!player && !isLoading && (
         <RecentSearches recent={recent} onSelect={showPlayer} />

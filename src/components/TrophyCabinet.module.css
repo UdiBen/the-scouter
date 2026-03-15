@@ -1,0 +1,48 @@
+.container {
+  background: rgba(250, 204, 21, 0.08);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(250, 204, 21, 0.15);
+}
+
+.categoryLabel {
+  font-size: 11px;
+  color: #fbbf24;
+  margin-bottom: 8px;
+}
+
+.category {
+  margin-bottom: 12px;
+}
+
+.category:last-child {
+  margin-bottom: 0;
+}
+
+.trophies {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.trophy {
+  background: rgba(250, 204, 21, 0.15);
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.trophyEmoji {
+  font-size: 22px;
+}
+
+.trophyName {
+  font-size: 11px;
+  color: #fde68a;
+  margin-top: 4px;
+}
+
+.trophyCount {
+  font-size: 10px;
+  color: #a78bfa;
+}

@@ -31,7 +31,7 @@
   align-items: center;
   flex-shrink: 0;
   width: 24px;
-  margin-top: 4px;
+  margin-top: 0;
 }
 
 .dot {
@@ -58,7 +58,7 @@
 
 .event {
   flex: 1;
-  padding-top: 4px;
+  padding-top: 0;
   margin-right: 12px;
   font-size: 12px;
   color: #e0d5ff;

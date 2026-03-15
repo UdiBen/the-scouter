@@ -172,9 +172,6 @@ export default function PlayerCard({ player, imageUrl, onDismiss }: PlayerCardPr
         </div>
       </div>
 
-      <p className={styles.disclaimer}>
-        * הנתונים מבוססים על AI ועשויים להיות לא מדויקים
-      </p>
     </div>
   )
 }

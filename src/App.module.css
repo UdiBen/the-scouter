@@ -67,3 +67,10 @@
 .discoverBtn:hover {
   opacity: 0.85;
 }
+
+.disclaimer {
+  text-align: center;
+  font-size: 10px;
+  color: rgba(167, 139, 250, 0.4);
+  margin-top: 12px;
+}

@@ -81,8 +81,6 @@ export default function ProfileCarousel({ player, onPlayerSearch }: Props) {
     slideRefs.current[index]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
   }
 
-  const activeColor = TAB_ACTIVE_COLORS[availableTabs[activeIndex]?.id] ?? '#a78bfa'
-
   return (
     <div className={styles.container}>
       <div className={styles.tabs}>
@@ -91,7 +89,7 @@ export default function ProfileCarousel({ player, onPlayerSearch }: Props) {
             key={tab.id}
             className={`${styles.tab} ${i === activeIndex ? styles.active : ''}`}
             style={{
-              background: i === activeIndex ? tab.color : 'transparent',
+              background: i === activeIndex ? tab.color : 'rgba(255,255,255,0.08)',
               borderColor: tab.borderColor,
               color: TAB_ACTIVE_COLORS[tab.id],
             }}
@@ -118,16 +116,6 @@ export default function ProfileCarousel({ player, onPlayerSearch }: Props) {
         ))}
       </div>
 
-      <div className={styles.dots}>
-        {availableTabs.map((tab, i) => (
-          <button
-            key={tab.id}
-            className={`${styles.dot} ${i === activeIndex ? styles.active : ''}`}
-            style={{ color: activeColor }}
-            onClick={() => scrollToSlide(i)}
-          />
-        ))}
-      </div>
     </div>
   )
 }

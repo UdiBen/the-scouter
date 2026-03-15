@@ -82,11 +82,6 @@ function App() {
       {isLoading && <LoadingTrivia />}
       {player && (
         <>
-          <PlayerCard
-            player={player}
-            imageUrl={imageUrl}
-            onDismiss={() => { setPlayer(null); setImageUrl(null) }}
-          />
           {hasProfileData && (
             <button
               className={styles.discoverBtn}
@@ -95,11 +90,19 @@ function App() {
               גלה עוד על השחקן ↓
             </button>
           )}
+          <PlayerCard
+            player={player}
+            imageUrl={imageUrl}
+            onDismiss={() => { setPlayer(null); setImageUrl(null) }}
+          />
           {hasProfileData && (
             <div ref={profileRef}>
               <ProfileCarousel player={player} onPlayerSearch={handleSearch} />
             </div>
           )}
+          <p className={styles.disclaimer}>
+            * הנתונים מבוססים על AI ועשויים להיות לא מדויקים
+          </p>
         </>
       )}
       {!player && !isLoading && (

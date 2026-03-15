@@ -55,6 +55,7 @@ export interface PlayerData {
   status: string
   currentClub: string
   englishName: string
+  imageUrl?: string | null
   funFact: string
   personalLife: string
   achievements: string

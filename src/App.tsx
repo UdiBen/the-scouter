@@ -58,11 +58,12 @@ function App() {
         `/api/image?q=${encodeURIComponent(data.englishName)}`
       )
       const imgData = await imgRes.json()
-      setImageUrl(imgData.url ?? null)
+      const finalImageUrl = imgData.url ?? data.imageUrl ?? null
+      setImageUrl(finalImageUrl)
 
       addRecent({
         data,
-        imageUrl: imgData.url ?? null,
+        imageUrl: finalImageUrl,
         timestamp: Date.now(),
       })
     } catch {

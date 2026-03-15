@@ -5,9 +5,10 @@ import type { PlayerData } from '../types'
 interface PlayerCardProps {
   player: PlayerData
   imageUrl: string | null
+  onDismiss?: () => void
 }
 
-export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
+export default function PlayerCard({ player, imageUrl, onDismiss }: PlayerCardProps) {
   const [isFlipped, setIsFlipped] = useState(false)
   const frontRef = useRef<HTMLDivElement>(null)
   const backRef = useRef<HTMLDivElement>(null)
@@ -26,6 +27,15 @@ export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
 
   return (
     <div className={styles.wrapper}>
+      {onDismiss && (
+        <button
+          className={styles.dismissBtn}
+          onClick={onDismiss}
+          aria-label="סגור"
+        >
+          ✕
+        </button>
+      )}
       <div
         className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
         style={{ height: cardHeight }}
@@ -138,7 +148,11 @@ export default function PlayerCard({ player, imageUrl }: PlayerCardProps) {
 
           <div className={styles.achievements}>
             <span className={styles.achievementsLabel}>🏆 הישגים</span>
-            <p className={styles.achievementsText}>{player.achievements}</p>
+            <ul className={styles.achievementsList}>
+              {player.achievements.split(/[,،]\s*|\n/).filter(Boolean).map((item, i) => (
+                <li key={i}>{item.trim()}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

@@ -73,7 +73,13 @@ function App() {
       <SearchBar onSearch={handleSearch} isLoading={isLoading} />
       {error && <p className={styles.error}>{error}</p>}
       {isLoading && <LoadingTrivia />}
-      {player && <PlayerCard player={player} imageUrl={imageUrl} />}
+      {player && (
+        <PlayerCard
+          player={player}
+          imageUrl={imageUrl}
+          onDismiss={() => { setPlayer(null); setImageUrl(null) }}
+        />
+      )}
       {!player && !isLoading && (
         <RecentSearches recent={recent} onSelect={showPlayer} />
       )}

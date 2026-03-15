@@ -3,6 +3,31 @@
   max-width: 500px;
   margin-top: 24px;
   perspective: 1000px;
+  position: relative;
+}
+
+.dismissBtn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(139, 92, 246, 0.5);
+  background: #1e1b4b;
+  color: #a78bfa;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dismissBtn:hover {
+  background: #7c3aed;
+  color: #fff;
 }
 
 .card {
@@ -49,8 +74,8 @@
 }
 
 .photoContainer {
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   margin: 0 auto 16px;
   background: linear-gradient(135deg, #7c3aed, #4ade80);
@@ -259,6 +284,18 @@
   font-size: 13px;
   color: #e0d5ff;
   margin: 6px 0 0;
+}
+
+.achievementsList {
+  font-size: 13px;
+  color: #e0d5ff;
+  margin: 6px 0 0;
+  padding-right: 20px;
+  list-style: disc;
+}
+
+.achievementsList li {
+  margin-bottom: 4px;
 }
 
 .disclaimer {

@@ -81,6 +81,38 @@ const SYSTEM_PROMPT = `אתה מומחה כדורגל. המשתמש יחפש ש�
 אם השחקן לא נמצא החזר: {"found": false}
 כל הטקסט חייב להיות בעברית מלבד englishName ו-clubColor.`
 
+function extractJSON(text: string): Record<string, unknown> | null {
+  // Strip markdown code fences if present
+  const stripped = text.replace(/```json?\s*/g, '').replace(/```\s*/g, '')
+
+  // Find the outermost balanced JSON object
+  const start = stripped.indexOf('{')
+  if (start === -1) return null
+
+  let depth = 0
+  let inString = false
+  let escape = false
+  for (let i = start; i < stripped.length; i++) {
+    const ch = stripped[i]
+    if (escape) { escape = false; continue }
+    if (ch === '\\' && inString) { escape = true; continue }
+    if (ch === '"' && !escape) { inString = !inString; continue }
+    if (inString) continue
+    if (ch === '{') depth++
+    else if (ch === '}') {
+      depth--
+      if (depth === 0) {
+        try {
+          return JSON.parse(stripped.slice(start, i + 1))
+        } catch {
+          return null
+        }
+      }
+    }
+  }
+  return null
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
@@ -104,23 +136,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
 
     const text = result.response.text()
-    const jsonMatch = text.match(/\{[\s\S]*\}/)
-    if (!jsonMatch) {
-      // Retry once on bad JSON
-      const retry = await model.generateContent({
-        contents: [{ role: 'user', parts: [{ text: query }] }],
-        tools: [{ googleSearch: {} } as never],
-      })
-      const retryText = retry.response.text()
-      const retryMatch = retryText.match(/\{[\s\S]*\}/)
-      if (!retryMatch) {
-        return res.status(500).json({ error: 'Invalid response format' })
-      }
-      return res.status(200).json(JSON.parse(retryMatch[0]))
+    const data = extractJSON(text)
+    if (data) {
+      return res.status(200).json(data)
     }
 
-    const data = JSON.parse(jsonMatch[0])
-    return res.status(200).json(data)
+    // Retry once on bad JSON
+    console.log('First attempt failed to parse, retrying. Raw:', text.slice(0, 200))
+    const retry = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: query }] }],
+      tools: [{ googleSearch: {} } as never],
+    })
+    const retryData = extractJSON(retry.response.text())
+    if (retryData) {
+      return res.status(200).json(retryData)
+    }
+
+    console.error('Both attempts failed to parse JSON')
+    return res.status(500).json({ error: 'Invalid response format' })
   } catch (error) {
     console.error('Search error:', error)
     return res.status(500).json({ error: 'Search failed' })

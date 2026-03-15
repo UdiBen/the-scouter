@@ -149,7 +149,7 @@ export default function PlayerCard({ player, imageUrl, onDismiss }: PlayerCardPr
           <div className={styles.achievements}>
             <span className={styles.achievementsLabel}>🏆 הישגים</span>
             <ul className={styles.achievementsList}>
-              {player.achievements.split(/[,،]\s*|\n/).filter(Boolean).map((item, i) => (
+              {player.achievements.split(/\s*·\s*|[,،]\s*|\n/).filter(Boolean).map((item, i) => (
                 <li key={i}>{item.trim()}</li>
               ))}
             </ul>

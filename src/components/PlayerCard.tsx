@@ -32,17 +32,17 @@ export default function PlayerCard({ player, imageUrl, onDismiss }: PlayerCardPr
         style={{ height: cardHeight }}
         onClick={() => setIsFlipped((f) => !f)}
       >
-        {onDismiss && (
-          <button
-            className={styles.dismissBtn}
-            onClick={(e) => { e.stopPropagation(); onDismiss(); }}
-            aria-label="סגור"
-          >
-            ✕
-          </button>
-        )}
         {/* Front */}
         <div ref={frontRef} className={styles.front}>
+          {onDismiss && (
+            <button
+              className={styles.dismissBtn}
+              onClick={(e) => { e.stopPropagation(); onDismiss(); }}
+              aria-label="סגור"
+            >
+              ✕
+            </button>
+          )}
           <button
             className={styles.flipHint}
             onClick={(e) => {
@@ -102,6 +102,15 @@ export default function PlayerCard({ player, imageUrl, onDismiss }: PlayerCardPr
 
         {/* Back */}
         <div ref={backRef} className={styles.back}>
+          {onDismiss && (
+            <button
+              className={styles.dismissBtn}
+              onClick={(e) => { e.stopPropagation(); onDismiss(); }}
+              aria-label="סגור"
+            >
+              ✕
+            </button>
+          )}
           <button
             className={styles.flipHint}
             onClick={(e) => {

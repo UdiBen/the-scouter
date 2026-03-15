@@ -85,6 +85,12 @@ export default function PlayerCard({ player, imageUrl, onDismiss }: PlayerCardPr
                 <span className={styles.statLabel}>מספר</span>
               </div>
             )}
+            {player.status && (
+              <div className={styles.stat}>
+                <span className={styles.statValue}>{player.status}</span>
+                <span className={styles.statLabel}>סטטוס</span>
+              </div>
+            )}
           </div>
 
           <div className={styles.funFact}>

@@ -16,6 +16,7 @@ export interface PlayerData {
   age: number
   position: string
   shirtNumber: number | null
+  status: string
   currentClub: string
   englishName: string
   funFact: string

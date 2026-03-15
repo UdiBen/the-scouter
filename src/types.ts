@@ -7,6 +7,42 @@ export interface PlayerCareer {
   assists: number | null
 }
 
+export interface Trophy {
+  name: string
+  emoji: string
+  count: number
+  category: 'league' | 'europe' | 'international' | 'individual'
+}
+
+export interface PlayingStyle {
+  speed: number
+  dribbling: number
+  shooting: number
+  passing: number
+  defense: number
+  physical: number
+  description: string
+}
+
+export interface TimelineEvent {
+  year: number
+  event: string
+}
+
+export interface SimilarPlayer {
+  name: string
+  englishName: string
+  flag: string
+  relation: string
+}
+
+export interface IconicMoment {
+  year: number
+  match: string
+  emoji: string
+  description: string
+}
+
 export interface PlayerData {
   found: true
   fullName: string
@@ -23,6 +59,11 @@ export interface PlayerData {
   personalLife: string
   achievements: string
   career: PlayerCareer[]
+  trophies?: Trophy[]
+  playingStyle?: PlayingStyle
+  timeline?: TimelineEvent[]
+  similarPlayers?: SimilarPlayer[]
+  iconicMoments?: IconicMoment[]
 }
 
 export interface PlayerNotFound {

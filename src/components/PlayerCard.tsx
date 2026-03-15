@@ -27,20 +27,20 @@ export default function PlayerCard({ player, imageUrl, onDismiss }: PlayerCardPr
 
   return (
     <div className={styles.wrapper}>
-      {onDismiss && (
-        <button
-          className={styles.dismissBtn}
-          onClick={onDismiss}
-          aria-label="סגור"
-        >
-          ✕
-        </button>
-      )}
       <div
         className={`${styles.card} ${isFlipped ? styles.flipped : ''}`}
         style={{ height: cardHeight }}
         onClick={() => setIsFlipped((f) => !f)}
       >
+        {onDismiss && (
+          <button
+            className={styles.dismissBtn}
+            onClick={(e) => { e.stopPropagation(); onDismiss(); }}
+            aria-label="סגור"
+          >
+            ✕
+          </button>
+        )}
         {/* Front */}
         <div ref={frontRef} className={styles.front}>
           <button

@@ -1,7 +1,7 @@
 .app {
   min-height: 100vh;
   background:
-    linear-gradient(135deg, #0d3b1e 25%, #14532d 50%, #0d3b1e 75%);
+    linear-gradient(135deg, #15603a 25%, #1a7a4a 50%, #15603a 75%);
   color: white;
   font-family: system-ui, sans-serif;
   display: flex;

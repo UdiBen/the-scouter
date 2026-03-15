@@ -22,7 +22,7 @@ export default function RecentSearches({
             className={styles.chip}
             onClick={() => onSelect(cached)}
           >
-            {cached.data.nationalityFlag} {cached.data.fullName}
+            {cached.data.nationalityFlag} {cached.data.displayName || cached.data.fullName}
           </button>
         ))}
       </div>

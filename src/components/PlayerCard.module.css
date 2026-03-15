@@ -125,6 +125,7 @@
   border-radius: 16px;
   text-align: center;
   min-width: 64px;
+  align-content: center;
 }
 
 .statValue {

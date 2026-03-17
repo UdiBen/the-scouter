@@ -10,25 +10,15 @@ import IconicMoments from './IconicMoments'
 interface Tab {
   id: string
   label: string
-  color: string
-  borderColor: string
 }
 
 const TABS: Tab[] = [
-  { id: 'trophies', label: '🏆 גביעים', color: 'rgba(250,204,21,0.3)', borderColor: 'rgba(250,204,21,0.4)' },
-  { id: 'style', label: '⚡ סגנון', color: 'rgba(34,211,238,0.15)', borderColor: 'rgba(34,211,238,0.3)' },
-  { id: 'timeline', label: '📅 ציר זמן', color: 'rgba(168,85,247,0.15)', borderColor: 'rgba(168,85,247,0.3)' },
-  { id: 'similar', label: '🔗 דומים', color: 'rgba(74,222,128,0.15)', borderColor: 'rgba(74,222,128,0.3)' },
-  { id: 'moments', label: '🎬 רגעים', color: 'rgba(244,63,94,0.15)', borderColor: 'rgba(244,63,94,0.3)' },
+  { id: 'trophies', label: '🏆 גביעים' },
+  { id: 'style', label: '⚡ סגנון' },
+  { id: 'timeline', label: '📅 ציר זמן' },
+  { id: 'similar', label: '🔗 דומים' },
+  { id: 'moments', label: '🎬 רגעים' },
 ]
-
-const TAB_ACTIVE_COLORS: Record<string, string> = {
-  trophies: '#fbbf24',
-  style: '#22d3ee',
-  timeline: '#a78bfa',
-  similar: '#4ade80',
-  moments: '#fb7185',
-}
 
 interface Props {
   player: PlayerData
@@ -88,11 +78,6 @@ export default function ProfileCarousel({ player, onPlayerSearch }: Props) {
           <button
             key={tab.id}
             className={`${styles.tab} ${i === activeIndex ? styles.active : ''}`}
-            style={{
-              background: i === activeIndex ? tab.color : 'rgba(255,255,255,0.08)',
-              borderColor: tab.borderColor,
-              color: TAB_ACTIVE_COLORS[tab.id],
-            }}
             onClick={() => scrollToSlide(i)}
           >
             {tab.label}

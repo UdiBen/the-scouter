@@ -1,14 +1,10 @@
 .container {
-  background: rgba(250, 204, 21, 0.18);
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid rgba(250, 204, 21, 0.3);
-}
-
-.categoryLabel {
-  font-size: 11px;
-  color: #fbbf24;
-  margin-bottom: 8px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .category {
@@ -19,30 +15,53 @@
   margin-bottom: 0;
 }
 
+.categoryLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 8px;
+  padding-right: 2px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
 .trophies {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 6px;
 }
 
 .trophy {
-  background: rgba(250, 204, 21, 0.15);
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: 10px 6px 8px;
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  min-width: 0;
+  transition: background 0.2s;
+}
+
+.trophy:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .trophyEmoji {
   font-size: 22px;
+  line-height: 1.2;
 }
 
 .trophyName {
-  font-size: 11px;
-  color: #fde68a;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.85);
   margin-top: 4px;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .trophyCount {
   font-size: 10px;
-  color: #a78bfa;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
 }

@@ -1,8 +1,10 @@
 .container {
-  background: rgba(168, 85, 247, 0.18);
-  border-radius: 12px;
-  padding: 20px;
-  border: 1px solid rgba(168, 85, 247, 0.3);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   direction: rtl;
 }
 
@@ -22,7 +24,7 @@
   flex-shrink: 0;
   font-size: 13px;
   font-weight: bold;
-  color: #c4b5fd;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .dotLine {
@@ -35,24 +37,24 @@
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: #a78bfa;
-  border: 2px solid #1e1b4b;
+  background: rgba(255, 255, 255, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
 }
 
 .entry:last-child .dot {
-  width: 14px;
-  height: 14px;
-  background: linear-gradient(135deg, #c084fc, #f0abfc);
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .line {
-  width: 2px;
+  width: 1.5px;
   flex: 1;
-  background: rgba(168, 85, 247, 0.3);
+  background: rgba(255, 255, 255, 0.12);
   min-height: 30px;
 }
 
@@ -61,7 +63,7 @@
   padding-top: 0;
   margin-right: 12px;
   font-size: 12px;
-  color: #e0d5ff;
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
   text-align: right;
 }

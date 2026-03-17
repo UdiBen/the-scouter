@@ -53,25 +53,25 @@ export default function PlayingStyleChart({ style }: Props) {
                 key={ring}
                 points={verts.map((v) => v.join(',')).join(' ')}
                 fill="none"
-                stroke={`rgba(34,211,238,${0.04 + ring * 0.02})`}
+                stroke={`rgba(255,255,255,${0.06 + ring * 0.03})`}
                 strokeWidth="1"
               />
             )
           })}
 
           {outerVertices.map((v, i) => (
-            <line key={i} x1={CX} y1={CY} x2={v[0]} y2={v[1]} stroke="rgba(34,211,238,0.15)" strokeWidth="1" />
+            <line key={i} x1={CX} y1={CY} x2={v[0]} y2={v[1]} stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
           ))}
 
           <polygon
             points={dataPoints.map((p) => p.join(',')).join(' ')}
-            fill="rgba(34,211,238,0.2)"
-            stroke="#22d3ee"
+            fill="rgba(74,222,128,0.2)"
+            stroke="#4ade80"
             strokeWidth="2"
           />
 
           {dataPoints.map((p, i) => (
-            <circle key={i} cx={p[0]} cy={p[1]} r="4" fill="#22d3ee" />
+            <circle key={i} cx={p[0]} cy={p[1]} r="4" fill="#4ade80" />
           ))}
 
           {AXES.map((axis, i) => {
@@ -84,7 +84,7 @@ export default function PlayingStyleChart({ style }: Props) {
                 y={y}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                fill="#67e8f9"
+                fill="rgba(255,255,255,0.75)"
                 fontSize="11"
                 fontFamily="sans-serif"
               >

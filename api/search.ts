@@ -115,11 +115,11 @@ function extractJSON(text: string): Record<string, unknown> | null {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== 'POST') {
+  if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  const { query } = req.body
+  const query = req.query.q
   if (!query || typeof query !== 'string') {
     return res.status(400).json({ error: 'Missing query' })
   }
@@ -136,10 +136,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       tools: [{ googleSearch: {} } as never],
     })
 
+    // Cache successful responses on Vercel's CDN for 24h, serve stale for 7d while revalidating
+    const cacheHeader = 's-maxage=86400, stale-while-revalidate=604800'
+
     const text = result.response.text()
     const data = extractJSON(text)
     if (data) {
-      return res.status(200).json(data)
+      return res.setHeader('Cache-Control', cacheHeader).status(200).json(data)
     }
 
     // Retry once on bad JSON
@@ -150,7 +153,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     })
     const retryData = extractJSON(retry.response.text())
     if (retryData) {
-      return res.status(200).json(retryData)
+      return res.setHeader('Cache-Control', cacheHeader).status(200).json(retryData)
     }
 
     console.error('Both attempts failed to parse JSON')

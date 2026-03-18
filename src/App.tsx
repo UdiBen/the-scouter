@@ -40,11 +40,7 @@ function App() {
     setImageUrl(null)
 
     try {
-      const searchRes = await fetch('/api/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query }),
-      })
+      const searchRes = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
       const data = await searchRes.json()
 
       if (!data.found) {
